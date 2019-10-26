@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeUnit : MonoBehaviour
+public class WizardUnit : MonoBehaviour
 {
     private Vector3 Player;
     private Vector2 PlayerDirection;
@@ -10,11 +10,13 @@ public class MeleeUnit : MonoBehaviour
     private float yDif;
     private float speed;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        speed = 0.004f;
+        speed = 0.002f;
     }
 
+    // Update is called once per frame
     void Update()
     {
         Player = GameObject.Find("Player").transform.position;
