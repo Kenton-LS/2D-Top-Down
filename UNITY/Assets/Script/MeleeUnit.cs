@@ -10,6 +10,8 @@ public class MeleeUnit : MonoBehaviour
     private float yDif;
     private float speed;
 
+    
+
     private void Start()
     {
         speed = 0.004f;
@@ -26,4 +28,29 @@ public class MeleeUnit : MonoBehaviour
 
         transform.Translate(PlayerDirection * speed);
     }
+
+    //
+    public int damage = 2;
+    public int maxHealth = 20;
+    public int health { get; set; }
+
+    public void Awake()
+    {
+        health = maxHealth;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public virtual void Die()
+    {
+        Destroy(gameObject);
+    }
+    //
 }

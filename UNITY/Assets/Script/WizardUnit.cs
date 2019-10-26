@@ -28,4 +28,29 @@ public class WizardUnit : MonoBehaviour
 
         transform.Translate(PlayerDirection * speed);
     }
+
+    //
+    public int damage = 8;
+    public int maxHealth = 5;
+    public int health { get; set; }
+
+    public void Awake()
+    {
+        health = maxHealth;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public virtual void Die()
+    {
+        Destroy(gameObject);
+    }
+    //
 }
