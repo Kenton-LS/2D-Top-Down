@@ -28,7 +28,9 @@ public class RangedUnit : MonoBehaviour
         PlayerDirection = new Vector2(xDif, yDif);
 
         transform.Translate(PlayerDirection * speed);
-    }
+
+       
+}
 
     //
     public int damage = 4;
@@ -53,5 +55,7 @@ public class RangedUnit : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    //
+
+   
+
 }
