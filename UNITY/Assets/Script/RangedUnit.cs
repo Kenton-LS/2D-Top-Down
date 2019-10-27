@@ -4,36 +4,55 @@ using UnityEngine;
 
 public class RangedUnit : MonoBehaviour
 {
-    private Vector3 Player;
-    private Vector2 PlayerDirection;
-    private float xDif;
-    private float yDif;
-    private float speed;
+    public float speed;
+    public float stoppingDistance;
+    public float retreatDistance;
+
+    private float timeBetweenShots;
+    public float startTimeBetweenShots;
 
 
-    // Start is called before the first frame update
+    public GameObject projectile;
+    public Transform MeleeUnit;
+
     void Start()
     {
-        speed = 0.007f;
+        MeleeUnit = GameObject.FindGameObjectWithTag("MeleeUnit").transform;
+
+        timeBetweenShots = startTimeBetweenShots;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Player = GameObject.Find("Player").transform.position;
+        if (Vector2.Distance(transform.position, MeleeUnit.position) > stoppingDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, MeleeUnit.position, speed * Time.deltaTime);
+        }
+        else if (Vector2.Distance(transform.position, MeleeUnit.position) < stoppingDistance && Vector2.Distance(transform.position, MeleeUnit.position) > retreatDistance)
+        {
+            transform.position = this.transform.position;
+        }
+        else if (Vector2.Distance(transform.position, MeleeUnit.position) < retreatDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, MeleeUnit.position, -speed * Time.deltaTime);
+        }
 
-        xDif = Player.x - transform.position.x;
-        yDif = Player.y - transform.position.y;
+        if (timeBetweenShots <= 0)
+        {
+            Instantiate(projectile, transform.position, Quaternion.identity);
+            timeBetweenShots = startTimeBetweenShots;
+        }
+        else
+        {
+            timeBetweenShots -= Time.deltaTime;
+        }
+    }
 
-        PlayerDirection = new Vector2(xDif, yDif);
-
-        transform.Translate(PlayerDirection * speed);
-
-       
-}
-
-    //
     public int damage = 4;
+    public float attackRange;
+    private float lastAttackTime;
+    public float attackDelay;
+
     public int maxHealth = 10;
     public int health { get; set; }
 
@@ -55,7 +74,4 @@ public class RangedUnit : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-   
-
 }

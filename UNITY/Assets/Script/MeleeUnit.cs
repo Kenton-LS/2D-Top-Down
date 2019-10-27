@@ -16,13 +16,13 @@ public class MeleeUnit : MonoBehaviour
 
     private void Start()
     {
-        speed = 0.004f;
+        speed = 0.007f;
     }
 
     void Update()
     {
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if(distanceToTarget < chaseRange) //chase the closest player
+        if (distanceToTarget < chaseRange) //chase the closest player
         {
             RangedUnit = GameObject.Find("RangedUnit").transform.position;
 
@@ -49,10 +49,14 @@ public class MeleeUnit : MonoBehaviour
                 lastAttackTime = Time.time; //get physical clock of last attack
             }
         }
+
+
+
+
     }
 
     //
-    public int damage;
+    public int damage = 2;
     public float attackRange;
     private float lastAttackTime;
     public float attackDelay;
@@ -68,7 +72,7 @@ public class MeleeUnit : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -79,4 +83,12 @@ public class MeleeUnit : MonoBehaviour
         Destroy(gameObject);
     }
     //
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Projectile"))
+        {
+            TakeDamage(4);
+
+        }
+    }
 }
