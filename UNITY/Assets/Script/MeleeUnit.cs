@@ -5,8 +5,10 @@ using UnityEngine;
 //[System.Serializable]
 public class MeleeUnit : MonoBehaviour
 {
-    private Vector3 RangedUnit;
-    private Vector2 RangedDirection;
+    public Transform Red;
+    public Transform Blue;
+    public Vector2 BlueDirection;
+    public Vector2 RedDirection;
     private float xDif;
     private float yDif;
     private float speed;
@@ -24,35 +26,29 @@ public class MeleeUnit : MonoBehaviour
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
         if (distanceToTarget < chaseRange) //chase the closest player
         {
-            RangedUnit = GameObject.Find("RangedUnit").transform.position;
-
-            xDif = RangedUnit.x - transform.position.x;
-            yDif = RangedUnit.y - transform.position.y;
-
-            RangedDirection = new Vector2(xDif, yDif);
-
-            transform.Translate(RangedDirection * speed);/*
-            Vector3 targetDir = target.position - transform.position;
-           float angle = Mathf.Atan2(targetDir.y, targetDir.x) * Mathf.Rad2Deg - 90f;
-            Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, q, 180);
-
-            transform.Translate(Vector3.up * Time.deltaTime * speed);*/
-        }
-
-        //float distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if (distanceToTarget < attackDelay)
-        {
-            if (Time.time > lastAttackTime + attackDelay)
+            if (gameObject.tag == "Red")
             {
-                target.SendMessage("TakeDamage", damage); //tell enemy to be damaged
-                lastAttackTime = Time.time; //get physical clock of last attack
+                
+                    transform.position = Vector2.MoveTowards(transform.position, Blue.position, speed * Time.deltaTime);
+                
+            }
+            else if (gameObject.tag == "Blue")
+            {
+
+                transform.position = Vector2.MoveTowards(transform.position, Red.position, speed * Time.deltaTime);
+
+            }
+
+            //float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            if (distanceToTarget < attackDelay)
+            {
+                if (Time.time > lastAttackTime + attackDelay)
+                {
+                    target.SendMessage("TakeDamage", damage); //tell enemy to be damaged
+                    lastAttackTime = Time.time; //get physical clock of last attack
+                }
             }
         }
-
-
-
-
     }
 
     //
@@ -85,10 +81,21 @@ public class MeleeUnit : MonoBehaviour
     //
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Projectile"))
+        if (collision.CompareTag("Blue Pro"))
         {
-            TakeDamage(4);
-
+            if (this.gameObject.tag == "Red")
+            { TakeDamage(4); }
         }
+        else if (collision.CompareTag("Red Pro"))
+        {
+            if (this.gameObject.tag == "Blue")
+            { TakeDamage(4); }
+        }
+
+        /*else if (collision.CompareTag("Blast"))
+        {
+            TakeDamage(8);
+
+        }*/
     }
 }

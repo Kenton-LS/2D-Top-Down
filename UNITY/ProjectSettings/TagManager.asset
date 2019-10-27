@@ -9,6 +9,10 @@ TagManager:
   - RangedUnit
   - Projectile
   - Blast
+  - Red
+  - Blue
+  - Blue Pro
+  - Red Pro
   layers:
   - Default
   - TransparentFX

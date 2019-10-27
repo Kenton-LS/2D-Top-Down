@@ -12,41 +12,86 @@ public class RangedUnit : MonoBehaviour
     public float startTimeBetweenShots;
 
 
-    public GameObject projectile;
-    public Transform MeleeUnit;
+    public GameObject redPro;
+    public GameObject bluePro;
+
+    public Transform Blue;
+    public Transform Red;
+    
 
     void Start()
     {
-        MeleeUnit = GameObject.FindGameObjectWithTag("MeleeUnit").transform;
+        if (this.gameObject.tag == "Red")
+        {
+            Blue = GameObject.FindGameObjectWithTag("Blue").transform;
+        }
+
+        if (this.gameObject.tag == "Blue")
+        {
+            Blue = GameObject.FindGameObjectWithTag("Red").transform;
+        }
 
         timeBetweenShots = startTimeBetweenShots;
     }
 
     void Update()
     {
-        if (Vector2.Distance(transform.position, MeleeUnit.position) > stoppingDistance)
+        if (this.gameObject.tag == "Red")
         {
-            transform.position = Vector2.MoveTowards(transform.position, MeleeUnit.position, speed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, Blue.position) > stoppingDistance)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, Blue.position, speed * Time.deltaTime);
+            }
+            else if (Vector2.Distance(transform.position, Blue.position) < stoppingDistance && Vector2.Distance(transform.position, Blue.position) > retreatDistance)
+            {
+                transform.position = this.transform.position;
+            }
+            else if (Vector2.Distance(transform.position, Blue.position) < retreatDistance)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, Blue.position, -speed * Time.deltaTime);
+            }
         }
-        else if (Vector2.Distance(transform.position, MeleeUnit.position) < stoppingDistance && Vector2.Distance(transform.position, MeleeUnit.position) > retreatDistance)
+
+        if (this.gameObject.tag == "Blue")
         {
-            transform.position = this.transform.position;
+            if (Vector2.Distance(transform.position, Red.position) > stoppingDistance)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, Red.position, speed * Time.deltaTime);
+            }
+            else if (Vector2.Distance(transform.position, Red.position) < stoppingDistance && Vector2.Distance(transform.position, Red.position) > retreatDistance)
+            {
+                transform.position = this.transform.position;
+            }
+            else if (Vector2.Distance(transform.position, Red.position) < retreatDistance)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, Red.position, -speed * Time.deltaTime);
+            }
         }
-        else if (Vector2.Distance(transform.position, MeleeUnit.position) < retreatDistance)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, MeleeUnit.position, -speed * Time.deltaTime);
-        }
+
+        //
+
 
         if (timeBetweenShots <= 0)
         {
-            Instantiate(projectile, transform.position, Quaternion.identity);
-            timeBetweenShots = startTimeBetweenShots;
+            if (gameObject.tag == "Blue Pro")
+            {
+                Instantiate(bluePro, transform.position, Quaternion.identity);
+                timeBetweenShots = startTimeBetweenShots;
+            }
+
+            if (gameObject.tag == "Red Pro")
+            {
+                Instantiate(redPro, transform.position, Quaternion.identity); //fire projectile
+                timeBetweenShots = startTimeBetweenShots;
+            }
         }
         else
         {
             timeBetweenShots -= Time.deltaTime;
         }
     }
+
+
 
     public int damage = 4;
     public float attackRange;
@@ -75,12 +120,27 @@ public class RangedUnit : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Blast"))
         {
-            TakeDamage(4);
+            TakeDamage(8);
 
+        }
+    }*/
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Blue Pro"))
+        {
+            if (this.gameObject.tag == "Red")
+            { TakeDamage(4); }
+        }
+
+        if (collision.CompareTag("Red Pro"))
+        {
+            if (this.gameObject.tag == "Blue")
+            { TakeDamage(4); }
         }
     }
 }
