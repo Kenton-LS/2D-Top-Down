@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 590537026012013884}
   m_Layer: 0
   m_Name: WizardUnit
-  m_TagString: WizardUnit
+  m_TagString: Red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,8 +146,8 @@ MonoBehaviour:
   stoppingDistance: 1
   retreatDistance: 1
   startTimeBetweenShots: 8
-  blast: {fileID: 1315254634646550332, guid: 123ff35a307718146a82477b4f1dc400, type: 3}
-  RangedUnit: {fileID: 0}
+  redBla: {fileID: 6813217283412512056, guid: 419594f828dc0954b923401e3f5e1745, type: 3}
+  Blue: {fileID: 0}
   damage: 8
   attackRange: 2
   attackDelay: 8

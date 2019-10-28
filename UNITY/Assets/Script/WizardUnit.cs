@@ -12,28 +12,28 @@ public class WizardUnit : MonoBehaviour
     public float startTimeBetweenShots;
 
 
-    public GameObject blast;
-    public Transform Red;
+    public GameObject redBla;
+    //public Transform Red;
     public Transform Blue;
 
     void Start()
     {
-        if (gameObject.tag == "Red")
-        {
+        /*if (gameObject.tag == "Red")
+        {*/
             Blue = GameObject.FindGameObjectWithTag("Blue").transform;
-        }
+        /*}
         else if (gameObject.tag == "Blue")
         {
             Blue = GameObject.FindGameObjectWithTag("Red").transform;
-        }
+        }*/
 
         timeBetweenShots = startTimeBetweenShots;
     }
 
     void Update()
     {
-        if (gameObject.tag == "Red")
-        {
+        /*if (gameObject.tag == "Red")
+        {*/
             if (Vector2.Distance(transform.position, Blue.position) > stoppingDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, Blue.position, speed * Time.deltaTime);
@@ -46,7 +46,7 @@ public class WizardUnit : MonoBehaviour
             {
                 transform.position = Vector2.MoveTowards(transform.position, Blue.position, -speed * Time.deltaTime);
             }
-        }
+        /*}
         else if (gameObject.tag == "Blue")
         {
             if (Vector2.Distance(transform.position, Red.position) > stoppingDistance)
@@ -61,7 +61,7 @@ public class WizardUnit : MonoBehaviour
             {
                 transform.position = Vector2.MoveTowards(transform.position, Red.position, -speed * Time.deltaTime);
             }
-        }
+        }*/
     }
 
 
@@ -97,13 +97,13 @@ public class WizardUnit : MonoBehaviour
     {
         if (collision.CompareTag("Blue Pro"))
         {
-            if(this.gameObject.tag == "Red")
+            //if(this.gameObject.tag == "Red")
             { TakeDamage(4); }
         }
-        else if (collision.CompareTag("Red Pro"))
+       if (collision.CompareTag("Red Pro"))
         {
-            if (this.gameObject.tag == "Blue")
-            { TakeDamage(4); }
+            //if (this.gameObject.tag == "Blue")
+            //{ TakeDamage(4); }
         }
     }
 }

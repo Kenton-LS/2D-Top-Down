@@ -15,4 +15,26 @@ public class ResourceBuilding : MonoBehaviour
     {
         
     }
+
+    public int maxHealth = 20;
+    public int health { get; set; }
+
+    public void Awake()
+    {
+        health = maxHealth;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public virtual void Die()
+    {
+        Destroy(gameObject);
+    }
 }

@@ -12,33 +12,34 @@ public class RangedUnit : MonoBehaviour
     public float startTimeBetweenShots;
 
 
+    //public GameObject redPro;
     public GameObject redPro;
-    public GameObject bluePro;
 
     public Transform Blue;
-    public Transform Red;
+    //public Transform Red;
     
 
     void Start()
     {
-        if (this.gameObject.tag == "Red")
-        {
+        /*if (this.gameObject.tag == "Red")
+        {*/
             Blue = GameObject.FindGameObjectWithTag("Blue").transform;
-        }
+        /*}
 
         if (this.gameObject.tag == "Blue")
         {
             Blue = GameObject.FindGameObjectWithTag("Red").transform;
-        }
+        }*/
 
         timeBetweenShots = startTimeBetweenShots;
     }
 
     void Update()
     {
-        if (this.gameObject.tag == "Red")
-        {
-            if (Vector2.Distance(transform.position, Blue.position) > stoppingDistance)
+        /*if (this.gameObject.tag == "Red")
+        {*/
+        Blue = GameObject.FindGameObjectWithTag("Blue").transform;
+        if (Vector2.Distance(transform.position, Blue.position) > stoppingDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, Blue.position, speed * Time.deltaTime);
             }
@@ -49,9 +50,9 @@ public class RangedUnit : MonoBehaviour
             else if (Vector2.Distance(transform.position, Blue.position) < retreatDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, Blue.position, -speed * Time.deltaTime);
-            }
+            }/*
         }
-
+    
         if (this.gameObject.tag == "Blue")
         {
             if (Vector2.Distance(transform.position, Red.position) > stoppingDistance)
@@ -66,24 +67,24 @@ public class RangedUnit : MonoBehaviour
             {
                 transform.position = Vector2.MoveTowards(transform.position, Red.position, -speed * Time.deltaTime);
             }
-        }
+        }*/
 
         //
 
 
         if (timeBetweenShots <= 0)
         {
-            if (gameObject.tag == "Blue Pro")
+            /*if (gameObject.tag == "Blue Pro")
             {
                 Instantiate(bluePro, transform.position, Quaternion.identity);
                 timeBetweenShots = startTimeBetweenShots;
             }
-
+            
             if (gameObject.tag == "Red Pro")
-            {
+            {*/
                 Instantiate(redPro, transform.position, Quaternion.identity); //fire projectile
                 timeBetweenShots = startTimeBetweenShots;
-            }
+            //}
         }
         else
         {
@@ -133,14 +134,14 @@ public class RangedUnit : MonoBehaviour
     {
         if (collision.CompareTag("Blue Pro"))
         {
-            if (this.gameObject.tag == "Red")
+            //if (this.gameObject.tag == "Red")
             { TakeDamage(4); }
         }
 
         if (collision.CompareTag("Red Pro"))
         {
-            if (this.gameObject.tag == "Blue")
-            { TakeDamage(4); }
+            //if (this.gameObject.tag == "Blue")
+            //{ TakeDamage(4); }
         }
     }
 }

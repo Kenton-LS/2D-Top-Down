@@ -5,10 +5,10 @@ using UnityEngine;
 //[System.Serializable]
 public class MeleeUnit : MonoBehaviour
 {
-    public Transform Red;
+    //public Transform Red;
     public Transform Blue;
     public Vector2 BlueDirection;
-    public Vector2 RedDirection;
+    //public Vector2 RedDirection;
     private float xDif;
     private float yDif;
     private float speed;
@@ -26,18 +26,18 @@ public class MeleeUnit : MonoBehaviour
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
         if (distanceToTarget < chaseRange) //chase the closest player
         {
-            if (gameObject.tag == "Red")
+            /*if (gameObject.tag == "Red")
             {
-                
+                */
                     transform.position = Vector2.MoveTowards(transform.position, Blue.position, speed * Time.deltaTime);
-                
+             /*   
             }
             else if (gameObject.tag == "Blue")
             {
 
                 transform.position = Vector2.MoveTowards(transform.position, Red.position, speed * Time.deltaTime);
 
-            }
+            }*/
 
             //float distanceToTarget = Vector3.Distance(transform.position, target.position);
             if (distanceToTarget < attackDelay)
@@ -83,13 +83,14 @@ public class MeleeUnit : MonoBehaviour
     {
         if (collision.CompareTag("Blue Pro"))
         {
-            if (this.gameObject.tag == "Red")
+            //if (this.gameObject.tag == "Red")
             { TakeDamage(4); }
         }
-        else if (collision.CompareTag("Red Pro"))
+
+        if (collision.CompareTag("Red Pro"))
         {
-            if (this.gameObject.tag == "Blue")
-            { TakeDamage(4); }
+            //if (this.gameObject.tag == "Blue")
+            //{ TakeDamage(4); }
         }
 
         /*else if (collision.CompareTag("Blast"))

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7453767937109066420}
   m_Layer: 0
   m_Name: RangedUnit
-  m_TagString: RangedUnit
+  m_TagString: Red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,9 +146,8 @@ MonoBehaviour:
   stoppingDistance: 1
   retreatDistance: 1
   startTimeBetweenShots: 3
-  projectile: {fileID: 7248908470640308908, guid: 46e77e3d9df199d43a7a1f5090901c54,
-    type: 3}
-  MeleeUnit: {fileID: 0}
+  redPro: {fileID: 3109164274563013469, guid: e767ecab573ba2a468265c909fff3a58, type: 3}
+  Blue: {fileID: 0}
   damage: 4
   attackRange: 0
   attackDelay: 0
