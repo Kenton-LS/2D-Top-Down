@@ -32,6 +32,7 @@ public class WizardUnit2 : MonoBehaviour
 
     void Update()
     {
+        Red = GameObject.FindGameObjectWithTag("Red").transform;
         /*if (gameObject.tag == "Red")
         {
             if (Vector2.Distance(transform.position, Blue.position) > stoppingDistance)
@@ -49,7 +50,7 @@ public class WizardUnit2 : MonoBehaviour
         }
         else if (gameObject.tag == "Blue")
         {*/
-            if (Vector2.Distance(transform.position, Red.position) > stoppingDistance)
+        if (Vector2.Distance(transform.position, Red.position) > stoppingDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, Red.position, speed * Time.deltaTime);
             }
@@ -62,6 +63,16 @@ public class WizardUnit2 : MonoBehaviour
                 transform.position = Vector2.MoveTowards(transform.position, Red.position, -speed * Time.deltaTime);
             }
         //}
+
+        if (timeBetweenShots <= 0)
+        {
+            Instantiate(blueBla, transform.position, Quaternion.identity);
+            timeBetweenShots = startTimeBetweenShots;
+        }
+        else
+        {
+            timeBetweenShots -= Time.deltaTime;
+        }
     }
 
 
@@ -101,6 +112,17 @@ public class WizardUnit2 : MonoBehaviour
             //{ TakeDamage(4); }
         }
         if (collision.CompareTag("Red Pro"))
+        {
+            //if (this.gameObject.tag == "Blue")
+            { TakeDamage(4); }
+        }
+        if (collision.CompareTag("Blue Bla"))
+        {
+            //if (this.gameObject.tag == "Red")
+            //{ TakeDamage(4); }
+        }
+
+        if (collision.CompareTag("Red Bla"))
         {
             //if (this.gameObject.tag == "Blue")
             { TakeDamage(4); }

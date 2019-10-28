@@ -25,6 +25,7 @@ public class RangedUnit2 : MonoBehaviour
 
     void Update()
     {
+        Red = GameObject.FindGameObjectWithTag("Red").transform;
         /*if (this.gameObject.tag == "Red")
         {
             if (Vector2.Distance(transform.position, Blue.position) > stoppingDistance)
@@ -43,7 +44,7 @@ public class RangedUnit2 : MonoBehaviour
 
         if (this.gameObject.tag == "Blue")
         {*/
-            if (Vector2.Distance(transform.position, Red.position) > stoppingDistance)
+        if (Vector2.Distance(transform.position, Red.position) > stoppingDistance)
             {
                 transform.position = Vector2.MoveTowards(transform.position, Red.position, speed * Time.deltaTime);
             }
@@ -127,6 +128,18 @@ public class RangedUnit2 : MonoBehaviour
         }
 
         if (collision.CompareTag("Red Pro"))
+        {
+            //if (this.gameObject.tag == "Blue")
+            { TakeDamage(4); }
+        }
+
+        if (collision.CompareTag("Blue Bla"))
+        {
+            //if (this.gameObject.tag == "Red")
+            //{ TakeDamage(4); }
+        }
+
+        if (collision.CompareTag("Red Bla"))
         {
             //if (this.gameObject.tag == "Blue")
             { TakeDamage(4); }

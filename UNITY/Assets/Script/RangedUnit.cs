@@ -143,5 +143,17 @@ public class RangedUnit : MonoBehaviour
             //if (this.gameObject.tag == "Blue")
             //{ TakeDamage(4); }
         }
+
+        if (collision.CompareTag("Blue Bla"))
+        {
+            //if (this.gameObject.tag == "Red")
+            { TakeDamage(4); }
+        }
+
+        if (collision.CompareTag("Red Bla"))
+        {
+            //if (this.gameObject.tag == "Blue")
+            //{ TakeDamage(4); }
+        }
     }
 }
